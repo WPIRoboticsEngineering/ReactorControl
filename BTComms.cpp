@@ -20,15 +20,25 @@ void BTComms::setup() {
 }
 
 /**
- * Send a message to the RCS that has 3 values (source, dest, data)
- */
-void BTComms::writeMessage(unsigned char b1, unsigned char b2, unsigned char b3) {
+ * Send a message to the RCS that has 3 values (opcode, source, dest)
+ * This method sends messages via bluetooth to the field that have an opcode with
+ * a source and destination address. It is used for the heartbeat message that has
+ * no message data.
+ *
+ * You could add additional methods exactly like this one, that take a payload such
+ * as a status message. You can create a new method that is exactly the same as this
+ * one (also called writeMessage), but with an additional parameter that gets sent.
+ * With C++ you can have multiple methods with the same name that are different by
+ * the number of parameters they have. Be sure that the new function adjusts the length,
+ * and writes the extra byte to the bluetooth interface and includes it in the checksum
+ * calculation.
+ */void BTComms::writeMessage(unsigned char opcode, unsigned char source, unsigned char dest) {
   Serial3.write(kMessageStart);
   Serial3.write(5);
-  Serial3.write(b1);
-  Serial3.write(b2);
-  Serial3.write(b3);
-  Serial3.write(0xff - (b1 + b2 + b3 + 5));
+  Serial3.write(opcode);
+  Serial3.write(source);
+  Serial3.write(dest);
+  Serial3.write(0xff - (opcode + source + dest + 5));
 }
 
 /**
