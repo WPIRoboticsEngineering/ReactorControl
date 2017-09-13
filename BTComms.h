@@ -21,7 +21,8 @@ class BTComms {
    private:
     enum BTstate {kLookingForStart, kReadingMessageLength, kReadMessage} BTstate;
     unsigned messageLength;
-    unsigned char message[20];
+    static const int messageBufferLength = 20;
+    unsigned char message[messageBufferLength];
     unsigned messageIndex;
     unsigned char kMessageStart = 0x5f;
 };

@@ -58,6 +58,11 @@ int BTComms::getMessageLength() {
  * @returns unsigned char The byte that is at the specified index
  */
 unsigned char BTComms::getMessageByte(unsigned index) {
+  if (index >= messageLength) {
+    Serial.print("request for message byte beyond end of message ");
+    Serial.println(index);
+    return 0;
+  }
   return message[index];  
 }
 
@@ -79,6 +84,11 @@ bool BTComms::read() {
         break;
       case kReadingMessageLength:
         messageLength = inByte - 1;
+        if (messageLength >= messageBufferLength) {
+          Serial.println("Received message length greater than buffer size");
+          BTstate = kLookingForStart;
+          break;
+        }
         messageIndex = 0;
         BTstate = kReadMessage;
         break;
