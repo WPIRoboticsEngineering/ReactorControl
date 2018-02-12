@@ -22,7 +22,7 @@
  * that state.
  *
  * Other things you may want to do:
- * - check is messages are addressed to your robot (or broadcast to all)
+ * - check if messages are addressed to your robot (or broadcast to all)
  * - handle the source and destination fields which exist for all messages
  * - add methods to determine which storage is free/used so you can ask by number
  *   rather than having to do the bit mask stuff

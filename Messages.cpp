@@ -74,6 +74,7 @@ bool Messages::read() {
 		case kRadiationAlert:
 			break;
 		case kStopMovement:
+			stopped = true;
 			break;
 		case kResumeMovement:
 			break;
